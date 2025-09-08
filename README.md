@@ -1,4 +1,4 @@
-# 梯子机场 - 9月2日22.5M/S|免费SSR/Clash/Shadowrocket/V2ray节点推荐，VPN节点购买推荐  更新时间 2025-09-02 10:11:33
+# 梯子机场 - 9月8日18.9M/S|免费V2ray/Clash/Shadowrocket/SSR节点推荐，VPN节点购买推荐  更新时间 2025-09-08 09:01:57
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://tizijichang.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,23 +9,23 @@
 
 ### Clash订阅链接
 
-- https://tizijichang.github.io/uploads/2025/09/0-20250902.yaml
-- https://tizijichang.github.io/uploads/2025/09/1-20250902.yaml
-- https://tizijichang.github.io/uploads/2025/09/2-20250902.yaml
-- https://tizijichang.github.io/uploads/2025/09/3-20250902.yaml
-- https://tizijichang.github.io/uploads/2025/09/4-20250902.yaml
+- https://tizijichang.github.io/uploads/2025/09/0-20250908.yaml
+- https://tizijichang.github.io/uploads/2025/09/1-20250908.yaml
+- https://tizijichang.github.io/uploads/2025/09/2-20250908.yaml
+- https://tizijichang.github.io/uploads/2025/09/3-20250908.yaml
+- https://tizijichang.github.io/uploads/2025/09/4-20250908.yaml
 
 ### V2ray订阅链接
 
-- https://tizijichang.github.io/uploads/2025/09/0-20250902.txt
-- https://tizijichang.github.io/uploads/2025/09/1-20250902.txt
-- https://tizijichang.github.io/uploads/2025/09/2-20250902.txt
-- https://tizijichang.github.io/uploads/2025/09/3-20250902.txt
-- https://tizijichang.github.io/uploads/2025/09/4-20250902.txt
+- https://tizijichang.github.io/uploads/2025/09/0-20250908.txt
+- https://tizijichang.github.io/uploads/2025/09/1-20250908.txt
+- https://tizijichang.github.io/uploads/2025/09/2-20250908.txt
+- https://tizijichang.github.io/uploads/2025/09/3-20250908.txt
+- https://tizijichang.github.io/uploads/2025/09/4-20250908.txt
 
 ### Sing-box订阅链接
 
-- https://tizijichang.github.io/uploads/2025/09/20250902.json
+- https://tizijichang.github.io/uploads/2025/09/20250908.json
 
 ## 更多clash节点订阅 ：
 
