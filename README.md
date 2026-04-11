@@ -1,4 +1,4 @@
-# 梯子机场 - 3月31日22M/S|免费Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点节点推荐，VPN节点购买推荐  更新时间 2026-03-31 11:28:13
+# 梯子机场 - 4月11日20.1M/S|免费V2ray节点/Shadowrocket节点/Clash节点/Singbox节点/SSR节点节点推荐，VPN节点购买推荐  更新时间 2026-04-11 08:49:12
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://tizijichang.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,23 +9,23 @@
 
 ### 免费Clash节点订阅链接
 
-- https://tizijichang.github.io/uploads/2026/03/0-20260331.yaml
-- https://tizijichang.github.io/uploads/2026/03/1-20260331.yaml
-- https://tizijichang.github.io/uploads/2026/03/2-20260331.yaml
-- https://tizijichang.github.io/uploads/2026/03/3-20260331.yaml
-- https://tizijichang.github.io/uploads/2026/03/4-20260331.yaml
+- https://tizijichang.github.io/uploads/2026/04/0-20260411.yaml
+- https://tizijichang.github.io/uploads/2026/04/1-20260411.yaml
+- https://tizijichang.github.io/uploads/2026/04/2-20260411.yaml
+- https://tizijichang.github.io/uploads/2026/04/3-20260411.yaml
+- https://tizijichang.github.io/uploads/2026/04/4-20260411.yaml
 
 ### 免费V2ray节点订阅链接
 
-- https://tizijichang.github.io/uploads/2026/03/0-20260331.txt
-- https://tizijichang.github.io/uploads/2026/03/1-20260331.txt
-- https://tizijichang.github.io/uploads/2026/03/2-20260331.txt
-- https://tizijichang.github.io/uploads/2026/03/3-20260331.txt
-- https://tizijichang.github.io/uploads/2026/03/4-20260331.txt
+- https://tizijichang.github.io/uploads/2026/04/0-20260411.txt
+- https://tizijichang.github.io/uploads/2026/04/1-20260411.txt
+- https://tizijichang.github.io/uploads/2026/04/2-20260411.txt
+- https://tizijichang.github.io/uploads/2026/04/3-20260411.txt
+- https://tizijichang.github.io/uploads/2026/04/4-20260411.txt
 
 ### 免费Sing-box节点订阅链接
 
-- https://tizijichang.github.io/uploads/2026/03/20260331.json
+- https://tizijichang.github.io/uploads/2026/04/20260411.json
 
 ## 更多Clash节点订阅 ：
 
