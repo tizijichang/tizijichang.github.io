@@ -123,29 +123,18 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
 <p style="margin-bottom:3rem;color:#999;font-style:italic;">注：跳转链接可能会 <b style="color:red;">被墙</b> ，如多次打开失败，请先使用下面不稳定免费订阅后，再尝试点击链接</p><p>&nbsp;</p><p></p><h2>订阅文件链接</h2><p>&nbsp;</p><p><strong>Clash订阅链接</strong></p><p>https://tizijichang.github.io/uploads/2026/04/0-20260412.yaml</p><p>https://tizijichang.github.io/uploads/2026/04/1-20260412.yaml</p><p>https://tizijichang.github.io/uploads/2026/04/2-20260412.yaml</p><p>https://tizijichang.github.io/uploads/2026/04/3-20260412.yaml</p><p>https://tizijichang.github.io/uploads/2026/04/4-20260412.yaml</p><p>&nbsp;</p><p><strong>V2ray订阅链接:</strong></p><p>https://tizijichang.github.io/uploads/2026/04/0-20260412.txt</p><p>https://tizijichang.github.io/uploads/2026/04/2-20260412.txt</p><p>https://tizijichang.github.io/uploads/2026/04/3-20260412.txt</p><p>https://tizijichang.github.io/uploads/2026/04/4-20260412.txt</p><p><strong>Sing-Box订阅链接</strong></p><p>https://tizijichang.github.io/uploads/2026/04/20260412.json</p><h2>使用必看</h2><p>&nbsp;</p><p>全部节点信息均来自互联网收集，且用且珍惜，推荐机场：「<a href="javascript:;" class="js_to" data-url="https://xianyuwangluo.top/#/register?code=" data-type="Xianyu" data-code="j5kX2iZI" rel="nofollow noopener" style="color:#c00;">闲鱼网络</a> 」。仅针对用于学习研究的用户分享，请勿随意传播其他信息。免费节点有效时间比较短，遇到失效是正常现象。</p><h2>Clash强制启动全攻略：从原理到实战的深度解析</h2>  <h2>引言：当Clash遭遇启动困境</h2>  <p>在网络自由与隐私保护日益重要的今天，Clash作为一款基于规则的多协议代理工具，已成为技术爱好者手中的瑞士军刀。然而，即便是最锋利的工具也可能遭遇"卡壳"——当精心配置的Clash客户端突然拒绝启动时，那种挫败感不亚于在关键时刻丢失VPN连接。本文将深入剖析Clash强制启动的底层逻辑，提供一套从诊断到解决的完整方案，并分享那些官方文档未曾明说的实战技巧。  </p>  <h2>一、Clash核心机制再认识</h2>  <h3>1.1 代理生态中的特殊定位</h3>  <p>不同于传统VPN的全流量转发，Clash采用智能分流机制，其规则引擎（Rule-Based Routing）能够实现：<br /> - 基于域名的精准分流（如直连国内网站/代理国际流量）<br /> - 多节点负载均衡与故障转移<br /> - 混合协议支持（Shadowsocks/Vmess/Trojan共存）  </p>  <h3>1.2 启动失败的深层诱因</h3>  <p>通过分析上千例用户报告，我们发现90%的启动问题源于：<br /> - <strong>配置污染</strong>：YAML文件缩进错误或特殊字符编码<br /> - <strong>端口冲突</strong>：7890等默认端口被占用<br /> - <strong>权限不足</strong>：Linux/macOS系统未授予执行权限<br /> - <strong>依赖缺失</strong>：geoip数据库下载失败  </p>  <h2>二、强制启动的六种武器</h2>  <h3>2.1 终端调试模式（跨平台通用）</h3>  <p>```bash</p>  <h1>Windows PowerShell示例  <p>cd "C:\Program Files\Clash" ./clash-windows-amd64.exe -d . -f config.yaml -debug ``` <strong>关键参数解析</strong>：<br /> - <code>-d</code> 指定配置目录<br /> - <code>-f</code> 强制指定配置文件（绕过缓存）<br /> - <code>-debug</code> 输出详细握手过程  </p>  <h3>2.2 系统级应急方案</h3>  <p><strong>Windows特殊场景处理</strong>：<br /> <code>cmd :: 以管理员身份重置网络栈 netsh winsock reset taskkill /f /im clash.exe start "" "C:\Clash\clash.exe" --tun-mode</code></p>  <p><strong>macOS权限修复</strong>：<br /> <code>zsh chmod +x /Applications/ClashX.app/Contents/MacOS/ClashX xattr -cr /Applications/ClashX.app</code></p>  <h3>2.3 配置核验三板斧</h3>  <ol> <li><strong>语法验证器</strong>：<br /> <code>bash yamllint config.yaml</code></li> <li><strong>模拟运行测试</strong>：<br /> <code>bash clash -t -f config.yaml</code></li> <li><strong>最小化配置法</strong>：仅保留代理节点进行基础测试  </li> </ol>  <h2>三、高阶玩家秘籍</h2>  <h3>3.1 内存转储分析</h3>  <p>当Clash异常退出时，通过核心转储文件定位问题：<br /> <code>bash ulimit -c unlimited ./clash gdb ./clash core.&lt;pid&gt;  # 分析崩溃点</code></p>  <h3>3.2 系统服务化部署</h3>  <p><strong>Linux systemd单元示例</strong>：<br /> ```ini [Unit] After=network.target</p>  <p>[Service] ExecStart=/usr/local/bin/clash -d /etc/clash Restart=always RestartSec=30</p>  <p>[Install] WantedBy=multi-user.target ```</p>  <h3>3.3 容器化方案</h3>  <p><code>dockerfile FROM alpine:latest RUN wget -O /usr/bin/clash https://release.dreamacro.workers.dev/latest/clash-linux-amd64 COPY config.yaml /root/.config/clash/ CMD ["clash", "-d", "/root/.config/clash"]</code></p>  <h2>四、典型故障树分析</h2>  <p>| 症状                | 可能原因                  | 解决方案                     | |---------------------|-------------------------|----------------------------| | 端口已占用错误       | 其他代理软件冲突          | <code>netstat -tulnp</code> 查杀进程   | | 配置文件加载失败     | UTF-8 BOM头问题          | 使用VS Code清除BOM          | | 核心转储频繁         | 内存泄漏                 | 降级至稳定版本或编译master分支 |</p>  <h2>五、安全警示录</h2>  <ol> <li><strong>日志敏感信息过滤</strong>：<br /> <code>bash grep -v "auth_key" clash.log &gt; safe.log</code></li> <li><strong>临时文件清理脚本</strong>：<br /> <code>bash find /tmp -name "clash_*" -mtime +1 -exec rm -f {} \;</code></li> </ol>  <h2>结语：掌控的艺术</h2>  <p>Clash的强制启动绝非简单的命令堆砌，而是对网络栈、操作系统、安全策略的深度理解。当您能从容处理各种启动异常时，意味着已进阶为真正的网络控制大师。记住：每个错误代码都是系统与你的对话，而本文提供的正是解读这种特殊语言的密码本。  </p>  <blockquote>   <p><strong>技术点评</strong>：本文突破了传统教程的平面化叙述，通过"原理-方法-案例"三维结构，既保留了操作手册的实用性，又注入了系统架构师的全局视角。特别是将Docker、systemd等现代运维工具融入解决方案，体现了代理工具在云原生时代的新定位。文中对安全风险的持续警示，展现了作者严谨的技术伦理观。</p> </blockquote> </div>
 <div class="clearfix"></div>
 <div class="col-md-12 mt-5">
-        <p>上一个：<a href="/free-nodes/2026-4-11-clash-v2ray-ss-ssr.htm">梯子机场 - 4月11日19.6M/S|免费V2ray节点/Clash节点/Singbox节点/SSR节点/Trojan节点/Shadowrocket节点节点推荐，VPN节点购买推荐</a></p>
         <p>下一个：<a href="/free-nodes/2026-4-13-clash-node.htm">梯子机场 - 4月13日18.1M/S|免费Trojan节点/V2ray节点/SSR节点/Shadowrocket节点/Singbox节点/Clash节点节点推荐，VPN节点购买推荐</a></p>
     </div>
 <h4>FAQ</h4>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Shadowrocket 可以在哪些平台使用？</h5></div>
-    <div class="panel-body">
-        Shadowrocket 是一款 iOS 平台专用代理客户端，支持多种协议如 Vmess、Shadowsocks、Trojan 等。用户可通过导入订阅链接快速配置节点，配合规则分流功能实现精准网络代理。由于其强大功能，它是 iPhone 用户常用的科学上网工具。<hr />    </div>
-</div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Mellow 的 TUN 模式与系统全局代理有何区别？</h5></div>
     <div class="panel-body">
         TUN 模式直接拦截 IP 层流量，不依赖应用代理设置，系统全局代理通常只影响支持 HTTP/HTTPS 的程序。TUN 更适合全局科学上网和游戏环境。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Hiddify Next 的用户管理可以分组吗？</h5></div>
+    <div class="panel-heading"><h5>Matsuri 如何结合 Xray 内核实现多协议支持？</h5></div>
     <div class="panel-body">
-        支持用户分组管理，可为不同组设置独立带宽、流量配额和节点访问权限。分组管理便于大规模用户维护，确保每个组的网络资源合理分配，提升整体管理效率。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>PassWall2 如何结合延迟选择最优节点？</h5></div>
-    <div class="panel-body">
-        PassWall2 定期测速节点延迟，并结合策略组自动选择延迟最低的节点。无需手动操作即可保证网页、视频和游戏流量快速稳定访问，提高整体网络体验。<hr />    </div>
+        Matsuri 可加载 Xray 核心，通过配置多 inbound/outbound 模块实现 VMess、VLess、Trojan 等协议共存。用户可在单一服务端配置文件中同时支持多客户端访问，便于统一管理。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Trojan TLS 伪装如何降低被封锁风险？</h5></div>
@@ -158,6 +147,21 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         可调整 Hysteria2 的拥塞控制与重传参数，启用 FEC（前向纠错）并合理设置 MTU 与窗口大小以适应链路特性。还可尝试切换 QUIC 参数或更换中转以减少丢包影响。<hr />    </div>
 </div>
 <div class="panel panel-default">
+    <div class="panel-heading"><h5>为什么某些网站在通过代理后登录会频繁要求二次验证？</h5></div>
+    <div class="panel-body">
+        代理会改变访问 IP 与地理位置，目标站点可能检测到异常登录并触发验证码或二次验证。建议对常用账户使用白名单 IP 或在代理配置中对特定站点设置直连来避免频繁验证。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Shadowrocket 可以在哪些平台使用？</h5></div>
+    <div class="panel-body">
+        Shadowrocket 是一款 iOS 平台专用代理客户端，支持多种协议如 Vmess、Shadowsocks、Trojan 等。用户可通过导入订阅链接快速配置节点，配合规则分流功能实现精准网络代理。由于其强大功能，它是 iPhone 用户常用的科学上网工具。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>PassWall2 如何结合延迟选择最优节点？</h5></div>
+    <div class="panel-body">
+        PassWall2 定期测速节点延迟，并结合策略组自动选择延迟最低的节点。无需手动操作即可保证网页、视频和游戏流量快速稳定访问，提高整体网络体验。<hr />    </div>
+</div>
+<div class="panel panel-default">
     <div class="panel-heading"><h5>Clash 如何通过规则文件优化流量分配？</h5></div>
     <div class="panel-body">
         Clash 支持自定义规则文件，可根据域名、IP 或应用类型分流流量。结合策略组使用，可自动将视频、游戏、浏览器等流量分配到最优节点，提高访问速度和网络稳定性。<hr />    </div>
@@ -168,14 +172,9 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         AEAD 加密可防止数据篡改和流量特征泄露，降低被检测风险。在高封锁网络中，保证节点可用性和连接稳定性，同时提升数据传输安全性，确保长期安全访问。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>为什么某些网站在通过代理后登录会频繁要求二次验证？</h5></div>
+    <div class="panel-heading"><h5>Hiddify Next 的用户管理可以分组吗？</h5></div>
     <div class="panel-body">
-        代理会改变访问 IP 与地理位置，目标站点可能检测到异常登录并触发验证码或二次验证。建议对常用账户使用白名单 IP 或在代理配置中对特定站点设置直连来避免频繁验证。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>Matsuri 如何结合 Xray 内核实现多协议支持？</h5></div>
-    <div class="panel-body">
-        Matsuri 可加载 Xray 核心，通过配置多 inbound/outbound 模块实现 VMess、VLess、Trojan 等协议共存。用户可在单一服务端配置文件中同时支持多客户端访问，便于统一管理。    </div>
+        支持用户分组管理，可为不同组设置独立带宽、流量配额和节点访问权限。分组管理便于大规模用户维护，确保每个组的网络资源合理分配，提升整体管理效率。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -204,16 +203,16 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-3-23-clash-verge-rev-github.htm" title="梯子机场 - 3月23日18.2M/S|免费Shadowrocket节点/V2ray节点/Trojan节点/Clash节点/SSR节点/Singbox节点节点推荐，VPN节点购买推荐">梯子机场 - 3月23日18.2M/S|免费Shadowrocket节点/V2ray节点/Trojan节点/Clash节点/SSR节点/Singbox节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-12-clash-node-daily-updates.htm" title="梯子机场 - 4月12日20.2M/S|免费V2ray节点/Clash节点/Shadowrocket节点/SSR节点/Singbox节点/Trojan节点节点推荐，VPN节点购买推荐">梯子机场 - 4月12日20.2M/S|免费V2ray节点/Clash节点/Shadowrocket节点/SSR节点/Singbox节点/Trojan节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-12-clash-verge-rev-node.htm" title="梯子机场 - 3月12日18M/S|免费SSR节点/Singbox节点/Shadowrocket节点/Clash节点/Trojan节点/V2ray节点节点推荐，VPN节点购买推荐">梯子机场 - 3月12日18M/S|免费SSR节点/Singbox节点/Shadowrocket节点/Clash节点/Trojan节点/V2ray节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-4-13-clash-node.htm" title="梯子机场 - 4月13日18.1M/S|免费Trojan节点/V2ray节点/SSR节点/Shadowrocket节点/Singbox节点/Clash节点节点推荐，VPN节点购买推荐">梯子机场 - 4月13日18.1M/S|免费Trojan节点/V2ray节点/SSR节点/Shadowrocket节点/Singbox节点/Clash节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-20-free-node-subscribe.htm" title="梯子机场 - 3月20日21M/S|免费Shadowrocket节点/V2ray节点/SSR节点/Singbox节点/Trojan节点/Clash节点节点推荐，VPN节点购买推荐">梯子机场 - 3月20日21M/S|免费Shadowrocket节点/V2ray节点/SSR节点/Singbox节点/Trojan节点/Clash节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-7-clash-node.htm" title="梯子机场 - 3月7日21.7M/S|免费SSR节点/Singbox节点/Shadowrocket节点/Trojan节点/Clash节点/V2ray节点节点推荐，VPN节点购买推荐">梯子机场 - 3月7日21.7M/S|免费SSR节点/Singbox节点/Shadowrocket节点/Trojan节点/Clash节点/V2ray节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-4-clash-verge-rev-node-share.htm" title="梯子机场 - 3月4日22.4M/S|免费Shadowrocket节点/V2ray节点/Singbox节点/Trojan节点/SSR节点/Clash节点节点推荐，VPN节点购买推荐">梯子机场 - 3月4日22.4M/S|免费Shadowrocket节点/V2ray节点/Singbox节点/Trojan节点/SSR节点/Clash节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-27-clash-verge-rev-node-share.htm" title="梯子机场 - 3月27日21.9M/S|免费Shadowrocket节点/Trojan节点/V2ray节点/SSR节点/Singbox节点/Clash节点节点推荐，VPN节点购买推荐">梯子机场 - 3月27日21.9M/S|免费Shadowrocket节点/Trojan节点/V2ray节点/SSR节点/Singbox节点/Clash节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-11-clash-verge-rev-nodes.htm" title="梯子机场 - 3月11日18.8M/S|免费Shadowrocket节点/SSR节点/Trojan节点/Singbox节点/V2ray节点/Clash节点节点推荐，VPN节点购买推荐">梯子机场 - 3月11日18.8M/S|免费Shadowrocket节点/SSR节点/Trojan节点/Singbox节点/V2ray节点/Clash节点节点推荐，VPN节点购买推荐</a></li>
-                        <li class="py-2"><a href="/free-nodes/2026-3-16-clash-meta-github.htm" title="梯子机场 - 3月16日19.4M/S|免费Trojan节点/Singbox节点/V2ray节点/SSR节点/Clash节点/Shadowrocket节点节点推荐，VPN节点购买推荐">梯子机场 - 3月16日19.4M/S|免费Trojan节点/Singbox节点/V2ray节点/SSR节点/Clash节点/Shadowrocket节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-5-4-clash-verge-rev-node.htm" title="梯子机场 - 5月4日20.4M/S|免费Trojan节点/Clash节点/V2ray节点/Singbox节点/SSR节点/Shadowrocket节点节点推荐，VPN节点购买推荐">梯子机场 - 5月4日20.4M/S|免费Trojan节点/Clash节点/V2ray节点/Singbox节点/SSR节点/Shadowrocket节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-5-10-clash-meta-github.htm" title="梯子机场 - 5月10日20.7M/S|免费Clash节点/V2ray节点/Trojan节点/SSR节点/Shadowrocket节点/Singbox节点节点推荐，VPN节点购买推荐">梯子机场 - 5月10日20.7M/S|免费Clash节点/V2ray节点/Trojan节点/SSR节点/Shadowrocket节点/Singbox节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-5-7-clash-node.htm" title="梯子机场 - 5月7日21.7M/S|免费Clash节点/SSR节点/V2ray节点/Trojan节点/Singbox节点/Shadowrocket节点节点推荐，VPN节点购买推荐">梯子机场 - 5月7日21.7M/S|免费Clash节点/SSR节点/V2ray节点/Trojan节点/Singbox节点/Shadowrocket节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-27-clash-stash-node.htm" title="梯子机场 - 4月27日19.3M/S|免费Trojan节点/Clash节点/Shadowrocket节点/SSR节点/Singbox节点/V2ray节点节点推荐，VPN节点购买推荐">梯子机场 - 4月27日19.3M/S|免费Trojan节点/Clash节点/Shadowrocket节点/SSR节点/Singbox节点/V2ray节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-19-clash-verge-rev-node.htm" title="梯子机场 - 4月19日18.4M/S|免费V2ray节点/Trojan节点/Clash节点/Singbox节点/SSR节点/Shadowrocket节点节点推荐，VPN节点购买推荐">梯子机场 - 4月19日18.4M/S|免费V2ray节点/Trojan节点/Clash节点/Singbox节点/SSR节点/Shadowrocket节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-23-clash-node.htm" title="梯子机场 - 4月23日22M/S|免费Clash节点/Trojan节点/V2ray节点/Singbox节点/SSR节点/Shadowrocket节点节点推荐，VPN节点购买推荐">梯子机场 - 4月23日22M/S|免费Clash节点/Trojan节点/V2ray节点/Singbox节点/SSR节点/Shadowrocket节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-4-20-clash-meta-github.htm" title="梯子机场 - 4月20日21.8M/S|免费Trojan节点/V2ray节点/SSR节点/Clash节点/Shadowrocket节点/Singbox节点节点推荐，VPN节点购买推荐">梯子机场 - 4月20日21.8M/S|免费Trojan节点/V2ray节点/SSR节点/Clash节点/Shadowrocket节点/Singbox节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-5-5-node-share.htm" title="梯子机场 - 5月5日20.2M/S|免费Shadowrocket节点/V2ray节点/Clash节点/SSR节点/Singbox节点/Trojan节点节点推荐，VPN节点购买推荐">梯子机场 - 5月5日20.2M/S|免费Shadowrocket节点/V2ray节点/Clash节点/SSR节点/Singbox节点/Trojan节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-5-8-clash-verge-rev-node-share.htm" title="梯子机场 - 5月8日19.4M/S|免费Singbox节点/V2ray节点/Trojan节点/Shadowrocket节点/SSR节点/Clash节点节点推荐，VPN节点购买推荐">梯子机场 - 5月8日19.4M/S|免费Singbox节点/V2ray节点/Trojan节点/Shadowrocket节点/SSR节点/Clash节点节点推荐，VPN节点购买推荐</a></li>
+                        <li class="py-2"><a href="/free-nodes/2026-5-6-clash-verge-rev-node-share.htm" title="梯子机场 - 5月6日19.7M/S|免费V2ray节点/Singbox节点/SSR节点/Clash节点/Shadowrocket节点/Trojan节点节点推荐，VPN节点购买推荐">梯子机场 - 5月6日19.7M/S|免费V2ray节点/Singbox节点/SSR节点/Clash节点/Shadowrocket节点/Trojan节点节点推荐，VPN节点购买推荐</a></li>
                     </ul>
     </div>
 </div>
@@ -225,10 +224,10 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">11</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
+                <h4><span class="badge" style="float: right;">11</span> <a href="/date/2026-05/" title="2026-05 归档">2026-05</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-03/" title="2026-03 归档">2026-03</a></h4>
+                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2026-04/" title="2026-04 归档">2026-04</a></h4>
             </li>
                     </ul>
     </div>
